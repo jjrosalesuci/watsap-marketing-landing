@@ -8,7 +8,7 @@ Una landing page moderna y profesional para servicios de marketing por WhatsApp,
 - **Totalmente Responsivo**: Optimizado para desktop, tablet y móvil
 - **Animaciones Suaves**: Efectos de scroll y hover para mejor UX
 - **SEO Optimizado**: Meta tags, favicon y estructura semántica
-- **GitHub Pages Ready**: Listo para deploy inmediato
+- **GitHub Pages Ready**: Listo para deploy inmediato con workflow automático
 - **Sin Dependencias**: HTML, CSS y JS puros sin frameworks
 
 ## 📱 Secciones Incluidas
@@ -83,10 +83,20 @@ Una landing page moderna y profesional para servicios de marketing por WhatsApp,
 
 ## 🚀 Deployment en GitHub Pages
 
+### Automático (Recomendado)
+Este repositorio incluye un workflow de GitHub Actions que despliega automáticamente el sitio a GitHub Pages:
+
 1. **Fork o clona este repositorio**
-2. **Activa GitHub Pages** en Settings > Pages
-3. **Selecciona** la rama `main` como fuente
-4. **¡Listo!** Tu sitio estará disponible en `https://[usuario].github.io/[repositorio]`
+2. **Activa GitHub Pages** en Settings > Pages > Source: "GitHub Actions"
+3. **¡Automático!** Cada push a la rama `main` desplegará automáticamente el sitio
+4. Tu sitio estará disponible en `https://[usuario].github.io/[repositorio]`
+
+### Manual (Alternativo)
+Si prefieres el despliegue manual:
+
+1. **Activa GitHub Pages** en Settings > Pages
+2. **Selecciona** la rama `main` como fuente
+3. **¡Listo!** Tu sitio estará disponible en `https://[usuario].github.io/[repositorio]`
 
 ## 🔧 Personalización
 
