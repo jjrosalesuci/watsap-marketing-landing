@@ -397,6 +397,7 @@ const translations = {
         'nav-how-it-works': 'Cómo Funciona',
         'nav-pricing': 'Precios',
         'nav-contact': 'Contacto',
+        'nav-testimonials': 'Testimonios',
         
         // Hero Section
         'hero-title': 'Impulsa tu negocio con Marketing por WhatsApp',
@@ -485,9 +486,10 @@ const translations = {
         'nav-how-it-works': 'How It Works',
         'nav-pricing': 'Pricing',
         'nav-contact': 'Contact',
+        'nav-testimonials': 'Testimonials',
         
         // Hero Section
-        'hero-title': 'Boost Your Business with WhatsApp Marketing',
+        'hero-title': 'Boost Your Business with <span class="highlight">WhatsApp Marketing</span>',
         'hero-subtitle': 'Automate messages, connect with your customers quickly and increase your sales through direct and personalized communication.',
         'hero-btn-trial': 'Try Free',
         'hero-btn-whatsapp': 'Chat on WhatsApp',
@@ -637,7 +639,12 @@ class LanguageManager {
         document.querySelectorAll('[data-translate]').forEach(element => {
             const key = element.getAttribute('data-translate');
             if (translation[key]) {
-                element.textContent = translation[key];
+                // Check if translation contains HTML
+                if (translation[key].includes('<') && translation[key].includes('>')) {
+                    element.innerHTML = translation[key];
+                } else {
+                    element.textContent = translation[key];
+                }
             }
         });
         
