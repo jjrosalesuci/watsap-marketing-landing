@@ -44,6 +44,39 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
+// Countdown Timer
+function initCountdownTimer() {
+    // Set countdown for 72 hours (3 days) from now
+    const countdownDate = new Date().getTime() + (72 * 60 * 60 * 1000);
+    
+    const timer = setInterval(() => {
+        const now = new Date().getTime();
+        const distance = countdownDate - now;
+        
+        const hours = Math.floor(distance / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        
+        const hoursElement = document.getElementById('hours');
+        const minutesElement = document.getElementById('minutes');
+        const secondsElement = document.getElementById('seconds');
+        
+        if (hoursElement) hoursElement.textContent = hours.toString().padStart(2, '0');
+        if (minutesElement) minutesElement.textContent = minutes.toString().padStart(2, '0');
+        if (secondsElement) secondsElement.textContent = seconds.toString().padStart(2, '0');
+        
+        // If countdown is finished, reset to 72 hours
+        if (distance < 0) {
+            clearInterval(timer);
+            // Restart countdown
+            setTimeout(initCountdownTimer, 1000);
+        }
+    }, 1000);
+}
+
+// Initialize countdown when page loads
+document.addEventListener('DOMContentLoaded', initCountdownTimer);
+
 // Intersection Observer for animations
 const observerOptions = {
     threshold: 0.1,
@@ -400,10 +433,18 @@ const translations = {
         'nav-testimonials': 'Testimonios',
         
         // Hero Section
-        'hero-title': 'Impulsa tu negocio con Marketing por WhatsApp',
+        'hero-title': 'Incrementa tus ventas un 300% con WhatsApp automatizado — sin complejidades',
         'hero-subtitle': 'Automatiza mensajes, conecta con tus clientes de forma rápida y aumenta tus ventas mediante comunicación directa y personalizada.',
-        'hero-btn-trial': 'Probar Gratis',
-        'hero-btn-whatsapp': 'Hablar por WhatsApp',
+        'hero-btn-trial': '¡Automatiza tu marketing ahora!',
+        'hero-btn-whatsapp': '¡Consigue más ventas hoy!',
+        
+        // Urgency Section
+        'urgency-title': '¡Oferta por Tiempo Limitado!',
+        'urgency-subtitle': 'Obtén un 25% de descuento en cualquier plan — Solo por 3 días',
+        'urgency-btn': '¡Aprovechar Descuento Ahora!',
+        'countdown-hours': 'Horas',
+        'countdown-minutes': 'Minutos',
+        'countdown-seconds': 'Segundos',
         
         // Chat mockup
         'chat-bot-message-1': '¡Hola! 👋 ¿Te interesa aumentar tus ventas?',
@@ -458,27 +499,34 @@ const translations = {
         // Testimonials
         'testimonials-title': 'Lo que dicen nuestros clientes',
         'testimonials-subtitle': 'Historias reales de éxito empresarial',
-        'testimonial-1-text': '"Aumentamos nuestras ventas un 250% en solo 3 meses. La automatización nos cambió la vida."',
-        'testimonial-1-author': 'María González',
-        'testimonial-1-role': 'CEO, Boutique Luna',
-        'testimonial-2-text': '"Increíble facilidad de uso. En una semana ya estábamos viendo resultados concretos."',
-        'testimonial-2-author': 'Carlos Rodríguez',
-        'testimonial-2-role': 'Director, Tech Solutions',
-        'testimonial-3-text': '"El mejor ROI que hemos tenido. Cada peso invertido se multiplicó por 5."',
-        'testimonial-3-author': 'Ana Martínez',
-        'testimonial-3-role': 'Fundadora, Eco Store',
+        'testimonial-1-text': '"Gracias a este sistema, mis consultas mensuales se duplicaron y las ventas aumentaron un 280%. Los resultados fueron inmediatos."',
+        'testimonial-1-author': 'Juan Pérez',
+        'testimonial-1-role': 'CEO, Tienda Digital Plus',
+        'testimonial-2-text': '"Pasé de gestionar 20 clientes por día a más de 100 automáticamente. El tiempo ahorrado me permite enfocarme en estrategia."',
+        'testimonial-2-author': 'Carmen Silva',
+        'testimonial-2-role': 'Directora Marketing, Fashion Store',
+        'testimonial-3-text': '"En 6 meses recuperé la inversión y ahora genero 5x más ingresos. Es la mejor herramienta que he usado."',
+        'testimonial-3-author': 'Roberto Mendoza',
+        'testimonial-3-role': 'Fundador, AutoVentas Pro',
         
         // Footer
         'footer-brand-desc': 'Transformamos la manera en que las empresas se conectan con sus clientes a través de WhatsApp.',
         'footer-contact-title': 'Contacto',
         'footer-links-title': 'Enlaces',
         'footer-legal-title': 'Legal',
+        'footer-trust-title': 'Confianza y Seguridad',
         'footer-privacy': 'Política de Privacidad',
         'footer-terms': 'Términos de Servicio',
         'footer-cookies': 'Cookies',
         'footer-legal-notice': 'Aviso Legal',
         'footer-copyright': '© 2024 WhatsApp Pro. Todos los derechos reservados.',
-        'whatsapp-float-text': 'Contactar por WhatsApp'
+        'whatsapp-float-text': 'Contactar por WhatsApp',
+        
+        // Trust Badges
+        'trust-secure': 'Pago Seguro',
+        'trust-support': 'Soporte 24/7',
+        'trust-certified': 'Certificado ISO',
+        'trust-privacy': 'Privacidad Garantizada'
     },
     en: {
         // Navigation
@@ -489,10 +537,18 @@ const translations = {
         'nav-testimonials': 'Testimonials',
         
         // Hero Section
-        'hero-title': 'Boost Your Business with <span class="highlight">WhatsApp Marketing</span>',
+        'hero-title': 'Increase your sales by 300% with automated WhatsApp — no complexities',
         'hero-subtitle': 'Automate messages, connect with your customers quickly and increase your sales through direct and personalized communication.',
-        'hero-btn-trial': 'Try Free',
-        'hero-btn-whatsapp': 'Chat on WhatsApp',
+        'hero-btn-trial': 'Automate your marketing now!',
+        'hero-btn-whatsapp': 'Get more sales today!',
+        
+        // Urgency Section
+        'urgency-title': 'Limited Time Offer!',
+        'urgency-subtitle': 'Get 25% off any plan — Only for 3 days',
+        'urgency-btn': 'Claim Discount Now!',
+        'countdown-hours': 'Hours',
+        'countdown-minutes': 'Minutes',
+        'countdown-seconds': 'Seconds',
         
         // Chat mockup
         'chat-bot-message-1': 'Hello! 👋 Interested in boosting your sales?',
@@ -547,27 +603,34 @@ const translations = {
         // Testimonials
         'testimonials-title': 'What our customers say',
         'testimonials-subtitle': 'Real stories of business success',
-        'testimonial-1-text': '"We increased our sales by 250% in just 3 months. Automation changed our lives."',
-        'testimonial-1-author': 'María González',
-        'testimonial-1-role': 'CEO, Boutique Luna',
-        'testimonial-2-text': '"Incredible ease of use. In one week we were already seeing concrete results."',
-        'testimonial-2-author': 'Carlos Rodríguez',
-        'testimonial-2-role': 'Director, Tech Solutions',
-        'testimonial-3-text': '"The best ROI we\'ve ever had. Every dollar invested was multiplied by 5."',
-        'testimonial-3-author': 'Ana Martínez',
-        'testimonial-3-role': 'Founder, Eco Store',
+        'testimonial-1-text': '"Thanks to this system, my monthly inquiries doubled and sales increased by 280%. The results were immediate."',
+        'testimonial-1-author': 'John Pérez',
+        'testimonial-1-role': 'CEO, Digital Store Plus',
+        'testimonial-2-text': '"I went from managing 20 clients per day to over 100 automatically. The saved time allows me to focus on strategy."',
+        'testimonial-2-author': 'Carmen Silva',
+        'testimonial-2-role': 'Marketing Director, Fashion Store',
+        'testimonial-3-text': '"In 6 months I recovered the investment and now generate 5x more revenue. It\'s the best tool I\'ve ever used."',
+        'testimonial-3-author': 'Robert Mendoza',
+        'testimonial-3-role': 'Founder, AutoSales Pro',
         
         // Footer
         'footer-brand-desc': 'We transform the way companies connect with their customers through WhatsApp.',
         'footer-contact-title': 'Contact',
         'footer-links-title': 'Links',
         'footer-legal-title': 'Legal',
+        'footer-trust-title': 'Trust & Security',
         'footer-privacy': 'Privacy Policy',
         'footer-terms': 'Terms of Service',
         'footer-cookies': 'Cookies',
         'footer-legal-notice': 'Legal Notice',
         'footer-copyright': '© 2024 WhatsApp Pro. All rights reserved.',
-        'whatsapp-float-text': 'Contact via WhatsApp'
+        'whatsapp-float-text': 'Contact via WhatsApp',
+        
+        // Trust Badges
+        'trust-secure': 'Secure Payment',
+        'trust-support': '24/7 Support',
+        'trust-certified': 'ISO Certified',
+        'trust-privacy': 'Privacy Guaranteed'
     }
 };
 

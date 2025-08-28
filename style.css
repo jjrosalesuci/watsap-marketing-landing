@@ -338,6 +338,106 @@ section {
     padding: 5rem 0;
 }
 
+/* Urgency Section */
+.urgency-section {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+    color: var(--white);
+    padding: 3rem 0;
+    text-align: center;
+}
+
+.urgency-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.urgency-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    animation: pulse 2s infinite;
+}
+
+.urgency-subtitle {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    opacity: 0.95;
+}
+
+.countdown-timer {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.countdown-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 1.5rem 1rem;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    min-width: 80px;
+}
+
+.countdown-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.countdown-label {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 0.5rem;
+}
+
+.urgency-btn {
+    background: var(--white) !important;
+    color: #ee5a24 !important;
+    font-size: 1.125rem;
+    padding: 1.25rem 2.5rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    border: none;
+}
+
+.urgency-btn:hover {
+    background: #f8f9fa !important;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@media (max-width: 768px) {
+    .countdown-timer {
+        gap: 1rem;
+    }
+    
+    .countdown-item {
+        min-width: 60px;
+        padding: 1rem 0.75rem;
+    }
+    
+    .countdown-number {
+        font-size: 2rem;
+    }
+    
+    .urgency-title {
+        font-size: 2rem;
+    }
+    
+    .urgency-subtitle {
+        font-size: 1rem;
+    }
+}
+
 .section-title {
     font-size: 2.5rem;
     font-weight: 700;
@@ -692,6 +792,40 @@ section {
 
 .contact-item:hover, .footer-links a:hover {
     color: var(--primary-color);
+}
+
+/* Trust Badges */
+.trust-badges {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.trust-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--gray-800);
+    padding: 1rem;
+    border-radius: 8px;
+    transition: var(--transition);
+    border: 1px solid var(--gray-700);
+}
+
+.trust-badge:hover {
+    background: var(--gray-700);
+    transform: translateY(-2px);
+}
+
+.trust-badge i {
+    color: var(--primary-color);
+    font-size: 1.25rem;
+}
+
+.trust-badge span {
+    color: var(--gray-300);
+    font-size: 0.875rem;
+    font-weight: 500;
 }
 
 .footer-bottom {
