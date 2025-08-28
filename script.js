@@ -164,7 +164,8 @@ function handleFormSubmit(formElement, successMessage = 'Mensaje enviado correct
         const originalText = submitButton.textContent;
         
         // Show loading state
-        submitButton.textContent = 'Enviando...';
+        const loadingText = window.languageMessages?.loading || 'Enviando...';
+        submitButton.textContent = loadingText;
         submitButton.disabled = true;
         
         try {
@@ -172,11 +173,13 @@ function handleFormSubmit(formElement, successMessage = 'Mensaje enviado correct
             await new Promise(resolve => setTimeout(resolve, 2000));
             
             // Show success message
-            showNotification(successMessage, 'success');
+            const successText = window.languageMessages?.success || successMessage;
+            showNotification(successText, 'success');
             formElement.reset();
             
         } catch (error) {
-            showNotification('Error al enviar el mensaje. Inténtalo de nuevo.', 'error');
+            const errorText = window.languageMessages?.error || 'Error al enviar el mensaje. Inténtalo de nuevo.';
+            showNotification(errorText, 'error');
         } finally {
             submitButton.textContent = originalText;
             submitButton.disabled = false;
@@ -386,6 +389,371 @@ const mobileStyleSheet = document.createElement('style');
 mobileStyleSheet.textContent = mobileNavStyles;
 document.head.appendChild(mobileStyleSheet);
 
+// Language Translation System
+const translations = {
+    es: {
+        // Navigation
+        'nav-benefits': 'Beneficios',
+        'nav-how-it-works': 'Cómo Funciona',
+        'nav-pricing': 'Precios',
+        'nav-contact': 'Contacto',
+        'nav-testimonials': 'Testimonios',
+        
+        // Hero Section
+        'hero-title': 'Impulsa tu negocio con Marketing por WhatsApp',
+        'hero-subtitle': 'Automatiza mensajes, conecta con tus clientes de forma rápida y aumenta tus ventas mediante comunicación directa y personalizada.',
+        'hero-btn-trial': 'Probar Gratis',
+        'hero-btn-whatsapp': 'Hablar por WhatsApp',
+        
+        // Chat mockup
+        'chat-bot-message-1': '¡Hola! 👋 ¿Te interesa aumentar tus ventas?',
+        'chat-user-message': '¡Sí, cuéntame más!',
+        'chat-bot-message-2': 'Perfecto. Te envío información personalizada...',
+        
+        // Benefits Section
+        'benefits-title': '¿Por qué elegir nuestro servicio?',
+        'benefits-subtitle': 'Descubre las ventajas que harán crecer tu negocio',
+        'benefit-1-title': 'Automatización Inteligente',
+        'benefit-1-desc': 'Automatiza respuestas y campañas de marketing 24/7 sin intervención manual.',
+        'benefit-2-title': 'Mayor Conversión',
+        'benefit-2-desc': 'Aumenta tus ventas hasta un 300% con comunicación directa y personalizada.',
+        'benefit-3-title': 'Fácil Integración',
+        'benefit-3-desc': 'Conecta con tus herramientas existentes en minutos, sin complicaciones técnicas.',
+        'benefit-4-title': 'Ahorro de Tiempo',
+        'benefit-4-desc': 'Reduce el tiempo de gestión de clientes en un 80% con respuestas automáticas.',
+        
+        // How it Works Section
+        'how-it-works-title': '¿Cómo funciona?',
+        'how-it-works-subtitle': 'Solo 3 pasos para revolucionar tu marketing',
+        'step-1-title': 'Conecta tu WhatsApp',
+        'step-1-desc': 'Vincula tu número de WhatsApp Business en menos de 2 minutos.',
+        'step-2-title': 'Configura tus Campañas',
+        'step-2-desc': 'Crea mensajes automáticos y segmenta tus clientes según sus necesidades.',
+        'step-3-title': 'Observa el Crecimiento',
+        'step-3-desc': 'Monitorea en tiempo real el aumento de tus ventas y engagement.',
+        
+        // Pricing Section
+        'pricing-title': 'Planes adaptados a tu negocio',
+        'pricing-subtitle': 'Elige el plan perfecto para hacer crecer tu empresa',
+        'plan-free-title': 'Gratis',
+        'plan-pro-title': 'Pro',
+        'plan-enterprise-title': 'Empresa',
+        'plan-popular-badge': 'Más Popular',
+        'plan-free-btn': 'Comenzar Gratis',
+        'plan-pro-btn': 'Elegir Pro',
+        'plan-enterprise-btn': 'Contactar Ventas',
+        'feature-messages-100': '100 mensajes/mes',
+        'feature-messages-5000': '5,000 mensajes/mes',
+        'feature-messages-unlimited': 'Mensajes ilimitados',
+        'feature-campaigns-1': '1 campaña activa',
+        'feature-campaigns-unlimited': 'Campañas ilimitadas',
+        'feature-support-basic': 'Soporte básico',
+        'feature-support-priority': 'Soporte prioritario',
+        'feature-support-24-7': 'Soporte 24/7',
+        'feature-analytics-advanced': 'Análisis avanzados',
+        'feature-integrations': 'Integraciones',
+        'feature-api': 'API personalizada',
+        'feature-manager': 'Gestor dedicado',
+        
+        // Testimonials
+        'testimonials-title': 'Lo que dicen nuestros clientes',
+        'testimonials-subtitle': 'Historias reales de éxito empresarial',
+        'testimonial-1-text': '"Aumentamos nuestras ventas un 250% en solo 3 meses. La automatización nos cambió la vida."',
+        'testimonial-1-author': 'María González',
+        'testimonial-1-role': 'CEO, Boutique Luna',
+        'testimonial-2-text': '"Increíble facilidad de uso. En una semana ya estábamos viendo resultados concretos."',
+        'testimonial-2-author': 'Carlos Rodríguez',
+        'testimonial-2-role': 'Director, Tech Solutions',
+        'testimonial-3-text': '"El mejor ROI que hemos tenido. Cada peso invertido se multiplicó por 5."',
+        'testimonial-3-author': 'Ana Martínez',
+        'testimonial-3-role': 'Fundadora, Eco Store',
+        
+        // Footer
+        'footer-brand-desc': 'Transformamos la manera en que las empresas se conectan con sus clientes a través de WhatsApp.',
+        'footer-contact-title': 'Contacto',
+        'footer-links-title': 'Enlaces',
+        'footer-legal-title': 'Legal',
+        'footer-privacy': 'Política de Privacidad',
+        'footer-terms': 'Términos de Servicio',
+        'footer-cookies': 'Cookies',
+        'footer-legal-notice': 'Aviso Legal',
+        'footer-copyright': '© 2024 WhatsApp Pro. Todos los derechos reservados.',
+        'whatsapp-float-text': 'Contactar por WhatsApp'
+    },
+    en: {
+        // Navigation
+        'nav-benefits': 'Benefits',
+        'nav-how-it-works': 'How It Works',
+        'nav-pricing': 'Pricing',
+        'nav-contact': 'Contact',
+        'nav-testimonials': 'Testimonials',
+        
+        // Hero Section
+        'hero-title': 'Boost Your Business with <span class="highlight">WhatsApp Marketing</span>',
+        'hero-subtitle': 'Automate messages, connect with your customers quickly and increase your sales through direct and personalized communication.',
+        'hero-btn-trial': 'Try Free',
+        'hero-btn-whatsapp': 'Chat on WhatsApp',
+        
+        // Chat mockup
+        'chat-bot-message-1': 'Hello! 👋 Interested in boosting your sales?',
+        'chat-user-message': 'Yes, tell me more!',
+        'chat-bot-message-2': 'Perfect. I\'ll send you personalized information...',
+        
+        // Benefits Section
+        'benefits-title': 'Why choose our service?',
+        'benefits-subtitle': 'Discover the advantages that will grow your business',
+        'benefit-1-title': 'Smart Automation',
+        'benefit-1-desc': 'Automate responses and marketing campaigns 24/7 without manual intervention.',
+        'benefit-2-title': 'Higher Conversion',
+        'benefit-2-desc': 'Increase your sales up to 300% with direct and personalized communication.',
+        'benefit-3-title': 'Easy Integration',
+        'benefit-3-desc': 'Connect with your existing tools in minutes, without technical complications.',
+        'benefit-4-title': 'Time Savings',
+        'benefit-4-desc': 'Reduce customer management time by 80% with automatic responses.',
+        
+        // How it Works Section
+        'how-it-works-title': 'How does it work?',
+        'how-it-works-subtitle': 'Just 3 steps to revolutionize your marketing',
+        'step-1-title': 'Connect Your WhatsApp',
+        'step-1-desc': 'Link your WhatsApp Business number in less than 2 minutes.',
+        'step-2-title': 'Set Up Your Campaigns',
+        'step-2-desc': 'Create automatic messages and segment your customers according to their needs.',
+        'step-3-title': 'Watch the Growth',
+        'step-3-desc': 'Monitor in real time the increase in your sales and engagement.',
+        
+        // Pricing Section
+        'pricing-title': 'Plans adapted to your business',
+        'pricing-subtitle': 'Choose the perfect plan to grow your company',
+        'plan-free-title': 'Free',
+        'plan-pro-title': 'Pro',
+        'plan-enterprise-title': 'Enterprise',
+        'plan-popular-badge': 'Most Popular',
+        'plan-free-btn': 'Start Free',
+        'plan-pro-btn': 'Choose Pro',
+        'plan-enterprise-btn': 'Contact Sales',
+        'feature-messages-100': '100 messages/month',
+        'feature-messages-5000': '5,000 messages/month',
+        'feature-messages-unlimited': 'Unlimited messages',
+        'feature-campaigns-1': '1 active campaign',
+        'feature-campaigns-unlimited': 'Unlimited campaigns',
+        'feature-support-basic': 'Basic support',
+        'feature-support-priority': 'Priority support',
+        'feature-support-24-7': '24/7 support',
+        'feature-analytics-advanced': 'Advanced analytics',
+        'feature-integrations': 'Integrations',
+        'feature-api': 'Custom API',
+        'feature-manager': 'Dedicated manager',
+        
+        // Testimonials
+        'testimonials-title': 'What our customers say',
+        'testimonials-subtitle': 'Real stories of business success',
+        'testimonial-1-text': '"We increased our sales by 250% in just 3 months. Automation changed our lives."',
+        'testimonial-1-author': 'María González',
+        'testimonial-1-role': 'CEO, Boutique Luna',
+        'testimonial-2-text': '"Incredible ease of use. In one week we were already seeing concrete results."',
+        'testimonial-2-author': 'Carlos Rodríguez',
+        'testimonial-2-role': 'Director, Tech Solutions',
+        'testimonial-3-text': '"The best ROI we\'ve ever had. Every dollar invested was multiplied by 5."',
+        'testimonial-3-author': 'Ana Martínez',
+        'testimonial-3-role': 'Founder, Eco Store',
+        
+        // Footer
+        'footer-brand-desc': 'We transform the way companies connect with their customers through WhatsApp.',
+        'footer-contact-title': 'Contact',
+        'footer-links-title': 'Links',
+        'footer-legal-title': 'Legal',
+        'footer-privacy': 'Privacy Policy',
+        'footer-terms': 'Terms of Service',
+        'footer-cookies': 'Cookies',
+        'footer-legal-notice': 'Legal Notice',
+        'footer-copyright': '© 2024 WhatsApp Pro. All rights reserved.',
+        'whatsapp-float-text': 'Contact via WhatsApp'
+    }
+};
+
+// Language Detection and Management
+class LanguageManager {
+    constructor() {
+        this.currentLanguage = this.detectLanguage();
+        this.init();
+    }
+    
+    detectLanguage() {
+        // Check for stored preference first
+        const storedLang = localStorage.getItem('preferred-language');
+        if (storedLang && translations[storedLang]) {
+            return storedLang;
+        }
+        
+        // Detect based on browser language
+        const browserLang = navigator.language || navigator.userLanguage;
+        const langCode = browserLang.toLowerCase();
+        
+        // English for US and other English-speaking countries
+        if (langCode.startsWith('en')) {
+            return 'en';
+        }
+        
+        // Spanish for Spanish-speaking countries (including Latin America)
+        if (langCode.startsWith('es')) {
+            return 'es';
+        }
+        
+        // Check timezone for Americas (rough geolocation)
+        const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        if (timezone) {
+            // US timezones - default to English
+            if (timezone.includes('America/New_York') || 
+                timezone.includes('America/Chicago') || 
+                timezone.includes('America/Denver') || 
+                timezone.includes('America/Los_Angeles') ||
+                timezone.includes('US/')) {
+                return 'en';
+            }
+            
+            // Latin American timezones - default to Spanish
+            if (timezone.includes('America/') && 
+                !timezone.includes('America/New_York') && 
+                !timezone.includes('America/Chicago') && 
+                !timezone.includes('America/Denver') && 
+                !timezone.includes('America/Los_Angeles')) {
+                return 'es';
+            }
+        }
+        
+        // Default to Spanish
+        return 'es';
+    }
+    
+    init() {
+        this.applyTranslations(this.currentLanguage);
+        this.createLanguageToggle();
+        this.updatePageLanguage();
+    }
+    
+    applyTranslations(lang) {
+        const translation = translations[lang];
+        if (!translation) return;
+        
+        // Update all elements with data-translate attribute
+        document.querySelectorAll('[data-translate]').forEach(element => {
+            const key = element.getAttribute('data-translate');
+            if (translation[key]) {
+                // Check if translation contains HTML
+                if (translation[key].includes('<') && translation[key].includes('>')) {
+                    element.innerHTML = translation[key];
+                } else {
+                    element.textContent = translation[key];
+                }
+            }
+        });
+        
+        // Update page title and meta tags
+        if (lang === 'en') {
+            document.title = 'WhatsApp Marketing - Boost Your Business';
+            document.querySelector('meta[name="description"]')?.setAttribute('content', 
+                'Boost your business with WhatsApp marketing. Automate messages, connect with customers and increase sales with direct communication.');
+            document.querySelector('meta[property="og:title"]')?.setAttribute('content', 
+                'Boost Your Business with WhatsApp Marketing');
+            document.querySelector('meta[property="og:description"]')?.setAttribute('content', 
+                'Automate messages, connect with customers quickly and increase sales through direct communication.');
+        } else {
+            document.title = 'Marketing por WhatsApp - Impulsa tu Negocio';
+            document.querySelector('meta[name="description"]')?.setAttribute('content', 
+                'Impulsa tu negocio con marketing por WhatsApp. Automatiza mensajes, conecta con clientes y aumenta ventas con comunicación directa.');
+            document.querySelector('meta[property="og:title"]')?.setAttribute('content', 
+                'Impulsa tu negocio con Marketing por WhatsApp');
+            document.querySelector('meta[property="og:description"]')?.setAttribute('content', 
+                'Automatiza mensajes, conecta con clientes de forma rápida y aumenta ventas mediante comunicación directa.');
+        }
+        
+        this.currentLanguage = lang;
+        localStorage.setItem('preferred-language', lang);
+    }
+    
+    updatePageLanguage() {
+        document.documentElement.setAttribute('lang', this.currentLanguage);
+    }
+    
+    createLanguageToggle() {
+        // Create language toggle button
+        const langToggle = document.createElement('div');
+        langToggle.className = 'language-toggle';
+        langToggle.innerHTML = `
+            <button class="lang-btn ${this.currentLanguage === 'es' ? 'active' : ''}" data-lang="es">
+                🇪🇸 ES
+            </button>
+            <button class="lang-btn ${this.currentLanguage === 'en' ? 'active' : ''}" data-lang="en">
+                🇺🇸 EN
+            </button>
+        `;
+        
+        // Add to navigation
+        const nav = document.querySelector('.nav-menu');
+        if (nav) {
+            nav.appendChild(langToggle);
+        }
+        
+        // Add event listeners
+        langToggle.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const selectedLang = e.target.getAttribute('data-lang');
+                this.switchLanguage(selectedLang);
+            });
+        });
+    }
+    
+    switchLanguage(lang) {
+        if (translations[lang]) {
+            this.applyTranslations(lang);
+            this.updatePageLanguage();
+            
+            // Update active language button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Re-run form validation messages if forms exist
+            this.updateFormMessages(lang);
+        }
+    }
+    
+    updateFormMessages(lang) {
+        // Update any dynamic form messages
+        const successMessages = {
+            'es': 'Mensaje enviado correctamente',
+            'en': 'Message sent successfully'
+        };
+        
+        const errorMessages = {
+            'es': 'Error al enviar el mensaje. Inténtalo de nuevo.',
+            'en': 'Error sending message. Please try again.'
+        };
+        
+        const loadingMessages = {
+            'es': 'Enviando...',
+            'en': 'Sending...'
+        };
+        
+        // Store these for use in form handling
+        window.languageMessages = {
+            success: successMessages[lang],
+            error: errorMessages[lang],
+            loading: loadingMessages[lang]
+        };
+    }
+    
+    getCurrentLanguage() {
+        return this.currentLanguage;
+    }
+}
+
+// Initialize language manager
+let languageManager;
+
 // Page load optimization
 document.addEventListener('DOMContentLoaded', () => {
     // Remove loading state if it exists
@@ -394,6 +762,9 @@ document.addEventListener('DOMContentLoaded', () => {
         loader.style.opacity = '0';
         setTimeout(() => loader.remove(), 300);
     }
+    
+    // Initialize language management
+    languageManager = new LanguageManager();
     
     // Initialize all interactive features
     console.log('WhatsApp Marketing Landing Page loaded successfully!');
